@@ -16,11 +16,11 @@ class Player {
 		console.log(options.app.scene)
 
 		this.object = options.object;
-		this.pathLines = new THREE.Object3D();
+		// this.pathLines = new THREE.Object3D();
 		this.pathColor = new THREE.Color(0xFF00FF);
 		this.nodeRadius = (options.nodeRadius) ? options.nodeRadius : 0.2;
 
-		this.navgroup.add(this.pathLines);
+		// this.navgroup.add(this.pathLines);
 
 		this.npc = options.npc;
 
@@ -91,7 +91,7 @@ class Player {
 			}
 		} else {
 			this.action = 'idle';
-			if (this.pathLines) this.app.scene.remove(this.pathLines);
+			if (this.pathLines) this.navgroup.remove(this.pathLines);
 		}
 	}
 
@@ -106,7 +106,7 @@ class Player {
 	}
 
 	showPathLines() {
-		if (this.pathLines) this.app.scene.remove(this.pathLines);
+		if (this.pathLines) this.navgroup.remove(this.pathLines);
 
 		const material = new THREE.LineBasicMaterial({
 			color: this.pathColor,
