@@ -256,11 +256,11 @@ class Environment {
 
     removeObjWithChildren(){
         const obj = this.scene.getObjectByName("navgroup")
-        // if(obj.children.length > 0){
-        //     for (var i = obj.children.length - 1; i >= 0; i--) {
-        //         this.removeObjWithChildren(obj.children[i]);
-        //     }
-        // }
+        if(obj.children.length > 0){
+            for (const i = obj.children.length - 1; i >= 0; i--) {
+                this.removeObjWithChildren(obj.children[i]);
+            }
+        }
         if(obj.isMesh){
             obj.geometry.dispose();
             obj.material.dispose();
