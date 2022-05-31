@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D VP</title>
+</head>
+<body>
+    <script>
+        var requestId = null;
+        var navigate = null;
+        var freeRoam = null;
+        var menu = null;
+        var main_body = null;
+        var menuHolder = null;
+        var header = null;
+    </script>
+
+    <script type="x-shader/x-vertex" id="vertexshader">
+
+        attribute float size;
+        attribute vec3 customColor;
+        varying vec3 vColor;
+      
+        void main() {
+      
+          vColor = customColor;
+          vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+          gl_PointSize = size * ( 300.0 / -mvPosition.z );
+          gl_Position = projectionMatrix * mvPosition;
+      
+        }
+      
+      </script>
+      <script type="x-shader/x-fragment" id="fragmentshader">
+      
+       uniform vec3 color;
+       uniform sampler2D pointTexture;
+      
+       varying vec3 vColor;
+      
+       void main() {
+      
+         gl_FragColor = vec4( color * vColor, 1.0 );
+         gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+      
+       }
+      </script>
+      
+      <div id="magic"></div>
+      <!-- <div class="playground">
+        <div class="bottomPosition">
+              <h1 class="special">Tanish Chavan<br><span class="minText">Im Genius</span></h1>
+        </div>
+      </div> -->
+
+      <div id="main_body"></div>
+      <header id = "header" class="header">
+       <!-- <label for="source" >SOURCE:</label> -->
+       <select name="source" id="sourceId" >
+         <option value="null">Source</option>
+         <option>V201</option>
+         <option>V202</option>
+         <option>V203</option>
+         <option>FacultyRoom</option>
+         <option>BoysWR</option>
+         <option>GirlsWR</option>
+         <option>V207</option>
+         <option>V208</option>
+         <option>V209</option>
+       </select>
+         <!-- <label for="classroom" >DESTINATION:</label> -->
+         <select name="classroom" id="classroomId">
+           <option value="null">Destination</option>
+           <option>V201</option>
+           <option>V202</option>
+           <option>V203</option>
+           <option>FacultyRoom</option>
+           <option>BoysWR</option>
+           <option>GirlsWR</option>
+           <option>V207</option>
+           <option>V208</option>
+           <option>V209</option>
+         </select>
+        
+        <div class="circles" id="circles">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+        </div>
+      </header>
+     
+      <div id="menuHolder" class="menu">
+      <div id="navigateHolder" class="menu_buttons">
+        NAVIGATE
+      </div>
+     <div id="freeRoamHolder" class="menu_buttons">
+       FREE ROAM
+     </div>
+     </div>
+      
+       <input type="button" value="&#x2795;" id="moveId" >
+     
+       <div class="point point-0">
+        <div class="label">V201</div>
+        <div class="text">
+          <ul>
+            <li>60 Benches</li>
+            <li>3 Air conditionars</li>
+            <li>Black Board</li>
+            <li>Podium</li>
+          </ul>
+        </div>
+    </div>
+    <div class="point point-1">
+      <div class="label">V202</div>
+      <div class="text">
+        <ul>
+          <li>60 Benches</li>
+          <li>3 Air conditionars</li>
+          <li>Black Board</li>
+          <li>Podium</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point point-2">
+      <div class="label">V203</div>
+      <div class="text">
+        <ul>
+          <li>60 Benches</li>
+          <li>3 Air conditionars</li>
+          <li>Black Board</li>
+          <li>Podium</li>
+        </ul>
+      </div>
+    </div>
+    <div class="point point-3">
+      <div class="label">V207</div>
+      
+      <div class="text">
+        <ul>
+          <li>60 Benches</li>
+          <li>3 Air conditionars</li>
+          <li>Black Board</li>
+          <li>Podium</li>
+        </ul>
+      </div>
+    </div>
+    
+    
+</body>
+</html>
