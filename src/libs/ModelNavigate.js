@@ -159,7 +159,7 @@ class ModelNavigate {
                 self.walker = new Player(options);
                 self.loading = false;
                 self.walker.action = 'idle';
-                const scale = 0.007;
+                const scale = 0.05;
                 self.walker.object.scale.set(scale, scale, scale);
                 self.walker.object.position.set(-1, 0, 2);
 

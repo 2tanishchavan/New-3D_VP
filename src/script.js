@@ -69,12 +69,11 @@ class Environment {
         this.clock = new THREE.Clock();
         this.playerPosition = new THREE.Vector3();
         this.pathfinder = new Pathfinding();
-
     }
 
     fpControl() {
         this.controls = new FirstPersonControls(this.camera, this.renderer.domElement);
-        this.controls.movementSpeed = 3;
+        this.controls.movementSpeed = 30;
         this.controls.lookSpeed = 0.1;
         this.controls.verticalMin = Math.PI * 10
         this.controls.enabled = false;
@@ -90,8 +89,9 @@ class Environment {
             clock: this.clock,
             renderer: this.renderer
         }
-
+        
         const navparams = {
+            removeObjWithChildren:this.removeObjWithChildren,
             scene: this.scene,
             camera: this.camera,
             controls: this.controls,
@@ -133,7 +133,7 @@ class Environment {
         }
         const gltfLoader = new GLTFLoader(loadingManager)
         gltfLoader.load(
-            "/meshes/secondFloor.glb",
+            "/meshes/final1.glb",
             function (gltf) {
                 // this.level = true;
                 // window.level = this.level;
@@ -147,9 +147,9 @@ class Environment {
         );
 
         gltfLoader.load(
-            "/meshes/secondFloor.nav.glb",
+            "/meshes/levelNav.glb",
             function (gltf) {
-                const _navmesh = gltf.scene.getObjectByName("Navmesh");
+                const _navmesh = gltf.scene.getObjectByName("Navmesh_Mesh");
                 const zone = Pathfinding.createZone(_navmesh.geometry);
                 // setting the zone data
                 // zone is the group of navigation mesh
@@ -165,7 +165,7 @@ class Environment {
                         // wireframe: true
                     })
                 );
-                navWireframe.position.y = self.OFFSET / 2;
+                // navWireframe.position.y = self.OFFSET / 2;
                 self.scene.add(navWireframe);
 
                 self.navmesh = new THREE.Mesh(
@@ -256,11 +256,11 @@ class Environment {
 
     removeObjWithChildren(){
         const obj = this.scene.getObjectByName("navgroup")
-        if(obj.children.length > 0){
-            for (const i = obj.children.length - 1; i >= 0; i--) {
-                this.removeObjWithChildren(obj.children[i]);
-            }
-        }
+        // if(obj.children.length > 0){
+        //     for (const i = obj.children.length - 1; i >= 0; i--) {
+        //         this.removeObjWithChildren(obj.children[i]);
+        //     }
+        // }
         if(obj.isMesh){
             obj.geometry.dispose();
             obj.material.dispose();
@@ -287,6 +287,7 @@ class Environment {
         // Freewalker = null;
         // delete window.Freewalker;
         // delete window.Navwalker;
+        // params.removeObjWithChildren();
         Navwalker = new ModelNavigate(params);
         // navigateModleExec = 0;
         // }
